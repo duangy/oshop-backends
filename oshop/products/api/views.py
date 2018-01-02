@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
 from . import serializers
 from products import models
 
@@ -14,3 +14,10 @@ class ProductCreateView(ListCreateAPIView):
 
     def get_queryset(self):
         return models.Product.objects.all()
+
+
+class ProductRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = serializers.ProductSerializer
+
+    def get_object(self):
+        return models.Product.objects.get(pk=self.kwargs.get('pk', None))
