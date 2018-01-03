@@ -11,6 +11,7 @@ class CateGoryCreateView(ListCreateAPIView):
 
 class ProductCreateView(ListCreateAPIView):
     serializer_class = serializers.ProductSerializer
+    filter_fields = ('category',)
 
     def get_queryset(self):
         return models.Product.objects.all()
