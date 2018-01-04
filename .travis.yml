@@ -7,4 +7,6 @@ install:
   - pip install -r requirements.txt
 
 script:
+  - python ./oshop/manage.py makemigrations
+  - python ./oshop/manage.py migrate
   - python ./oshop/manage.py test
