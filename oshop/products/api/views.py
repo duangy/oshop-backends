@@ -22,3 +22,17 @@ class ProductRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return models.Product.objects.get(pk=self.kwargs.get('pk', None))
+
+
+class ShoppingCartListCreateView(ListCreateAPIView):
+    serializer_class = serializers.ShoppingCartSerializer
+
+    def get_queryset(self):
+        return models.ShoppingCart.objects.all()
+
+
+class ShoppingCartRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = serializers.ShoppingCartSerializer
+
+    def get_object(self):
+        return models.ShoppingCart.objects.get(pk=self.kwargs.get('pk', None))

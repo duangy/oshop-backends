@@ -12,3 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
         fields = '__all__'
+
+
+class ShoppingCartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ShoppingCart
+        fields = '__all__'
