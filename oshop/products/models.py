@@ -30,7 +30,7 @@ class Product(models.Model):
 
 class ShoppingCart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    products = models.ManyToManyField(Product, through='CartProductRel', through_fields=('cart', 'product'))
+    products = models.ManyToManyField(Product, through='CartProductRel')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

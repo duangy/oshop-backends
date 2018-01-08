@@ -11,21 +11,23 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
+        fields ='__all__'
+
+
+class CartProductRelSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    class Meta:
+        model = models.CartProductRel
         fields = '__all__'
-
-
-class CartProductRelSerializer(serializers.Serializer):
-    product = serializers.StringRelatedField()
-    cart = serializers.StringRelatedField()
-    quantity = serializers.IntegerField()
 
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
-    products = CartProductRelSerializer(many=True, read_only=True)
+    id = serializers.UUIDField(format='hex')
+    cartproductrel_set = CartProductRelSerializer(many=True)
 
     class Meta:
         model = models.ShoppingCart
-        fields = '__all__'
+        fields = ('id', 'user', 'cartproductrel_set')
     
     def create(self, validated_data):
         products_data = validated_data.pop('products') 
