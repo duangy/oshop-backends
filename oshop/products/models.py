@@ -30,8 +30,9 @@ class Product(models.Model):
 
 class ShoppingCart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    products = models.ManyToManyField(Product, through='CartProductRel')
+    product = models.ForeignKey(Product)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    quantity = models.IntegerField('数量', default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
@@ -40,15 +41,3 @@ class ShoppingCart(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '购物车'
-
-
-class CartProductRel(models.Model):
-    product = models.ForeignKey(Product, verbose_name='商品')
-    cart = models.ForeignKey(ShoppingCart, verbose_name='购物车')
-    quantity = models.IntegerField('数量', default=1)
-
-    def __str__(self):
-        return str(self.product)
-
-    class Meta:
-        verbose_name = verbose_name_plural = '购物车商品'
